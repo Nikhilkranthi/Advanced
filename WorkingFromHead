@@ -34,6 +34,24 @@ void disp()
                 temp=temp->next;
         }
 }
+void delete(int data)
+{
+        struct Node* temp=head,*previous;
+        if(head->data==data)
+        {
+                head=head->next;
+        }
+        else
+        {
+        while(temp->data!=data)
+        {
+                previous=temp;
+                temp=temp->next;
+        }
+        
+        previous->next=temp->next;
+        }
+}
 int main()
 {
         insert(10);
@@ -46,4 +64,7 @@ int main()
         insert(91);
         insert(35);
         disp();
+        delete(35);
+        printf("\n");
+         disp();
 }
