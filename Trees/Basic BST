@@ -88,6 +88,19 @@ struct TreeNode* deleteNode(struct TreeNode* root,int data)
                 }
         }
 }
+int findHeight(struct TreeNode* root)
+{
+        if(root==NULL)
+        {
+                return 0;
+        }
+        else
+        {
+                int leftHeight=findHeight(root->left);
+                int rightHeight=findHeight(root->right);
+                return leftHeight>rightHeight?leftHeight+1:rightHeight+1;
+        }
+}
 int main()
 {
         struct TreeNode* root=NULL;
@@ -104,6 +117,9 @@ int main()
         root=insert(root,23);
         disp(root);
         printf("\n");
-        root=deleteNode(root,10);
+        root=deleteNode(root,123);
         disp(root);
+        printf("\n");
+        int height=findHeight(root);
+        printf("%d\n",height);
 }
