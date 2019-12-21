@@ -1,0 +1,109 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct TreeNode{
+        int data;
+        struct TreeNode* right,*left;
+};
+struct TreeNode* createNode(int data)
+{
+        struct TreeNode* newNode=(struct TreeNode*)malloc(sizeof(struct TreeNode));
+        newNode->data=data;
+        newNode->right=NULL;
+        newNode->left=NULL;
+        return newNode;
+}
+struct TreeNode* insert(struct TreeNode* root,int data)
+{
+        if(root==NULL)
+        {
+                return createNode(data);
+        }
+        else
+        {
+                if(data>root->data)
+                {
+                        root->right=insert(root->right,data);
+                }
+                else if(data<root->data)
+                {
+                        root->left=insert(root->left,data);
+                }
+                else
+                {
+                        printf("\nDuplicate Insertion");
+                }
+        }
+        return root;
+}
+void disp(struct TreeNode* root)
+{
+        if(root==NULL)
+        {
+                return;
+        }
+        else
+        {
+                disp(root->left);
+                printf("%d ",root->data);
+                disp(root->right);
+        }
+}
+struct TreeNode* deleteNode(struct TreeNode* root,int data)
+{
+        if(root==NULL)
+        {
+                printf("\n Not there to delete");
+        }
+        else if(data<root->data)
+        {
+                root->left=deleteNode(root->left,data);
+        }else if(data>root->data)
+        {
+                root->right=deleteNode(root->right,data);
+        }
+        else
+        {
+                if(root->right==NULL && root->left==NULL)
+                {
+                        return NULL;
+                }
+                else if(root->left==NULL)
+                {
+                        return root->right;
+                }
+                else if(root->right==NULL)
+                {
+                        return root->left;
+                }
+                else
+                {
+                        struct TreeNode* temp=root->right;
+                        while(temp->left!=NULL)
+                        {
+                                temp=temp->left;
+                        }
+                        root->data=temp->data;
+                        root->right=deleteNode(root->right,temp->data);
+                        return root;
+                }
+        }
+}
+int main()
+{
+        struct TreeNode* root=NULL;
+        root=insert(root,10);
+        root=insert(root,20); 
+        root=insert(root,45); 
+        root=insert(root,21); 
+        root=insert(root,76); 
+        root=insert(root,1); 
+        root=insert(root,18); 
+        root=insert(root,94); 
+        root=insert(root,123); 
+        root=insert(root,6); 
+        root=insert(root,23);
+        disp(root);
+        printf("\n");
+        root=deleteNode(root,10);
+        disp(root);
+}
