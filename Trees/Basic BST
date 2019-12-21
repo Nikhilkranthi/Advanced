@@ -101,6 +101,24 @@ int findHeight(struct TreeNode* root)
                 return leftHeight>rightHeight?leftHeight+1:rightHeight+1;
         }
 }
+int findMin(struct TreeNode* root)
+{
+        struct TreeNode* temp=root;
+        while(temp->left!=NULL)
+        {
+                temp=temp->left;
+        }
+        return temp->data;
+}
+int findMax(struct TreeNode* root)
+{
+        struct TreeNode* temp=root;
+        while(temp->right!=NULL)
+        {
+                temp=temp->right;
+        }
+        return temp->data;
+}
 int main()
 {
         struct TreeNode* root=NULL;
@@ -122,4 +140,8 @@ int main()
         printf("\n");
         int height=findHeight(root);
         printf("%d\n",height);
+        int min=findMin(root);
+        printf("Min Element is: %d \n",min);
+        int max=findMax(root);
+        printf("Max Element is: %d \n",max);
 }
