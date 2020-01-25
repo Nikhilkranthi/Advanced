@@ -1,0 +1,68 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct Node
+{
+    int data;
+    struct Node* left,* right;
+};
+//int max=0;
+struct Node* root=NULL;
+struct Node* createNode(int ele)
+{
+    struct Node* newNode=(struct Node*)malloc(sizeof(struct Node));
+    newNode->data=ele;
+    newNode->right=NULL;
+    newNode->left=NULL;
+    return newNode;
+}
+struct Node* insert(struct Node* root,int ele)
+{
+    if(root==NULL)
+    {
+        return createNode(ele);
+    }
+    else
+    {
+        if(ele>root->data)
+        {
+            root->right=insert(root->right,ele);
+        }
+        else
+        {
+            root->left=insert(root->left,ele);
+        }
+    }
+    return root;
+}
+void disp(struct Node* root,int level,int *max1)
+{
+    if(root==NULL)
+    {
+    return;    
+    }
+    else
+    {
+       if(level>*max1)
+       {
+           printf("%d ",root->data);
+           *max1=level;
+          // level++;
+       }
+       disp(root->right,level+1,max1);
+       disp(root->left,level+1,max1);
+    }
+    
+}
+int main()
+{
+    int max=0;
+    root=insert(root,5);
+    root=insert(root,2);
+    root=insert(root,12);
+    root=insert(root,1);
+    root=insert(root,3);
+    root=insert(root,9);
+    root=insert(root,21);
+    root=insert(root,19);
+    disp(root,1,&max); 
+}
